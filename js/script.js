@@ -1,5 +1,12 @@
 'use strict';
 
+// If gettext is not available, show untranslated string.
+if(typeof gettext == 'undefined'){
+  window.gettext = function(str){
+    return str
+  }
+}
+
 function generatePassword(numberOfWords) {
   // Cryptographically generated random numbers
   numberOfWords = parseInt(numberOfWords);
@@ -40,19 +47,19 @@ function convertSecondsToReadable(seconds) {
   var numCenturies   = Math.floor(numSeconds / (60 * 60 * 24 * 365 * 100));
 
   if (numMilliseconds < 1000) {
-    timeString = numMilliseconds + ' milliseconds';
+    timeString = numMilliseconds + ' ' + gettext('milliseconds');
   } else if (numSeconds < 60) {
-    timeString = numSeconds + ' seconds';
+    timeString = numSeconds + ' ' + gettext('seconds');
   } else if (numMinutes < 60) {
-    timeString = numMinutes + ' minutes';
+    timeString = numMinutes + ' ' + gettext('minutes');
   } else if (numHours < 24) {
-    timeString = numHours + ' hours';
+    timeString = numHours + ' ' + gettext('hours');
   } else if (numDays < 365) {
-    timeString = numDays + ' days';
+    timeString = numDays + ' ' + gettext('days');
   } else if (numYears < 100) {
-    timeString = numYears + ' years';
+    timeString = numYears + ' ' + gettext('years');
   } else {
-    timeString = numCenturies + ' centuries';
+    timeString = numCenturies + ' ' + gettext('centuries');
   }
 
   return timeString.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
